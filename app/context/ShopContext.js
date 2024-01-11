@@ -1,19 +1,36 @@
 "use client"
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
+
+import {getProductDetails} from "@/app/productDetailAction";
 
 export const ShopContext = createContext(null)
 
 export const ShopProvider = ({children})=>{
     const [cartItems, setCartItems] = useState({})
 
+    const [totalAmount, setTotalAmount] = useState(0);
 
+    useEffect(() => {
+        const getTotalAmount = async () => {
+            let Amount = 0;
+
+            for (const item in cartItems) {
+                const itemInfo = await getProductDetails(item);
+                 Amount += itemInfo[0].price * cartItems[item];
+            }
+
+
+            setTotalAmount(Amount);
+        };
+
+
+        getTotalAmount();
+    }, [cartItems]);
     const addToCart = (itemId) => {
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({...prev, [itemId]: 1}))
-            console.log(cartItems)
         } else {
             setCartItems((prev) => ({...prev, [itemId]: prev[itemId] + 1}))
-            console.log(cartItems)
         }
     }
 
@@ -35,11 +52,14 @@ export const ShopProvider = ({children})=>{
 
         return 0
     }
+
+
     const contextValue = {
         getTotalCartItems,
         addToCart,
         getCartItemCount,
-        removeFromCart
+        removeFromCart,
+        totalAmount
 
     };
     return(

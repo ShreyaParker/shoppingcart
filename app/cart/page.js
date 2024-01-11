@@ -6,8 +6,9 @@ import { fetchProducts } from "@/app/action";
 import CartItems from "@/app/component/CartItems";
 
 const CartPage = () => {
-    const { getCartItemCount } = useContext(ShopContext);
+    const {totalAmount,getCartItemCount } = useContext(ShopContext);
     const [data, setData] = useState([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +26,10 @@ const CartPage = () => {
     return (
         <div className="flex flex-col justify-center items-center">
             <h2 className="text-3xl  font-bold">Cart Items</h2>
+
+            <h1>
+              total : $  {totalAmount}
+            </h1>
 
             {data.map((product) => {
                 if (getCartItemCount(product.id) !== 0) {
