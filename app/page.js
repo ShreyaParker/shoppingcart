@@ -1,4 +1,5 @@
 import {fetchProducts} from "@/app/action";
+import ProductCard from "@/app/component/ProductCard";
 
 async function Home() {
  const data = await fetchProducts()
@@ -12,7 +13,9 @@ async function Home() {
 
           <div className="flex  justify-center ">
               <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-                  {data}
+                  {data.map((item, index) => (
+                      <ProductCard key={item.id} item={item} index={index} />
+                  ))}
               </section>
           </div>
 

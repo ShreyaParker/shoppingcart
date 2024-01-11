@@ -1,6 +1,6 @@
 "use server";
 
-import ProductCard from "@/app/component/ProductCard";
+
 
 export const fetchProducts = async () => {
     const response = await fetch(`https://dummyjson.com/products`);
@@ -15,7 +15,5 @@ export const fetchProducts = async () => {
 
     console.log(products);
 
-    return products.map((item, index) => (
-                <ProductCard key={item.id} item={item} index={index} />
-            ))
+    return products
 };
