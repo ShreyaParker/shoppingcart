@@ -1,7 +1,8 @@
 import {fetchProducts} from "@/app/action";
 
 async function Home() {
- const data = await fetchProducts(9)
+ const data = await fetchProducts()
+
 
 
   return (

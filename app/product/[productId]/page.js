@@ -1,12 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 
-import ProductDetails from "@/component/ProductDetails";
+import ProductDetails from "@/app/component/ProductDetails";
 import {getProductDetails} from "@/app/productDetailAction";
 
 const ProductsPage = ({ params }) => {
     const [productDetails, setProductDetails] = useState([]);
-
 
     const getDetails = async () => {
         try {
